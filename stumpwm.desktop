@@ -1,0 +1,16 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=StumpWM
+Comment=The best WM there is!
+Exec=stumpwm
+TryExec=stumpwm
+Icon=
+Type=Application
+NoDisplay=true
+X-GNOME-WMName=StumpWM
+X-GNOME-Bugzilla-Bugzilla=StumpWM
+X-GNOME-Bugzilla-Product=stumpwm
+X-GNOME-Bugzilla-Component=general
+X-GNOME-Autostart-Phase=WindowManager
+X-GNOME-Provides=windowmanager
+X-GNOME-Autostart-Notify=true
