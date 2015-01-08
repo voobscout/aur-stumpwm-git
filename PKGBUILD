@@ -25,7 +25,7 @@ source=('git://github.com/stumpwm/stumpwm.git'
        )
 
 sha256sums=('SKIP'
-            '155e1530975f279d03db9652879d3c61a5cbc398cae3ae74804b03e23e4bb1fb'
+            'e778a0be5ac00557c49a99bcdaa18c568733f81910837e7084ca4a8e7eccc8ea'
            )
 
 pkgver() {
@@ -42,13 +42,13 @@ _gitname="stumpwm"
 
 build() {
 
+  msg "Installing clx, ppcre"
   sbcl --non-interactive \
        --eval "(ql:update-client)" \
        --eval "(ql:update-all-dists)" \
        --eval "(ql:quickload \"clx\")" \
        --eval "(ql:quickload \"cl-ppcre\")"
 
-  msg "Compiling StumpWM..."
   msg "Connecting to ${_gitroot}..."
 
   if [ -d ${srcdir}/${_gitname} ] ; then
@@ -59,7 +59,6 @@ build() {
 
   msg "GIT checkout done or server timeout"
 
-  msg "Starting make..."
   rm -rf ${srcdir}/${_gitname}-build
 
   cp -a ${srcdir}/${_gitname} ${srcdir}/${_gitname}-build
@@ -73,14 +72,14 @@ build() {
 }
 
 package() {
+  msg "Installing StumpWM"
+  cd ${srcdir}/${_gitname}-build
+  make destdir=${pkgdir} install
+
   msg "Installing StumpWM xsession"
   install -Dm 644 ${srcdir}/stumpwm.desktop ${pkgdir}/usr/share/xsessions/stumpwm.desktop
 
   # rm -f ${pkgdir}/usr/share/info/dir
-
-  msg "Installing StumpWM"
-  cd ${srcdir}/${_gitname}-build
-  make destdir=${pkgdir} install
 
   install -Dm 644 sample-stumpwmrc.lisp ${pkgdir}/etc/stumpwmrc.sample
  }
