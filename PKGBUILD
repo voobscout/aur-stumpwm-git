@@ -8,7 +8,7 @@
 pkgname=stumpwm-git
 # _pkgname=stumpwm
 pkgver=95101bd
-pkgrel=1
+pkgrel=2
 pkgdesc="A tiling, keyboard-driven window manager written in common lisp"
 arch=('i686' 'x86_64')
 license=('GPL2')
