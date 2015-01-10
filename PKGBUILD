@@ -12,8 +12,8 @@ pkgrel=2
 pkgdesc="A tiling, keyboard-driven window manager written in common lisp"
 arch=('i686' 'x86_64')
 license=('GPL2')
-depends=('quicklisp' 'xorg-xdpyinfo')
-makedepends=('git' 'texinfo' 'autoconf')
+depends=('quicklisp' 'xorg-xdpyinfo' 'xorg-xprop' 'rlwrap')
+makedepends=('git' 'texinfo' 'autoconf' 'wget')
 url="http://github.com/stumpwm/stumpwm"
 provides=('stumpwm')
 optdepends=('emacs: Edit and eval stumpwm code with M-x stumpwm-mode'
@@ -77,9 +77,13 @@ package() {
   make destdir=${pkgdir} install
 
   msg "Installing StumpWM xsession"
-  install -Dm 644 ${srcdir}/stumpwm.desktop ${pkgdir}/usr/share/xsessions/stumpwm.desktop
+  install -Dm 0644 ${srcdir}/stumpwm.desktop ${pkgdir}/usr/share/xsessions/stumpwm.desktop
 
-  # rm -f ${pkgdir}/usr/share/info/dir
+  msg "Installing stumpwmrc.sample"
+  install -Dm 0644 sample-stumpwmrc.lisp ${pkgdir}/etc/stumpwmrc.sample
 
-  install -Dm 644 sample-stumpwmrc.lisp ${pkgdir}/etc/stumpwmrc.sample
+  msg "Installing stumpish"
+  cd ${srcdir}
+  wget -c https://raw.githubusercontent.com/stumpwm/stumpwm-contrib/master/util/stumpish/stumpish
+  install -Dm 0755 ${srcdir}/stumpish ${pkgdir}/usr/bin/stumpish
  }
