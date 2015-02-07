@@ -74,7 +74,7 @@ build() {
 package() {
   msg "Installing StumpWM"
   cd ${srcdir}/${_gitname}-build
-  make destdir=${pkgdir} install
+  make DESTDIR=${pkgdir} install
 
   msg "Installing StumpWM xsession"
   install -Dm 0644 ${srcdir}/stumpwm.desktop ${pkgdir}/usr/share/xsessions/stumpwm.desktop
